@@ -16,9 +16,11 @@
 
 import os
 import sys
+from git import Repo
+from datetime import datetime
 
 extensions = [
-    'otcdocstheme'
+    'otcdocstheme',
 ]
 
 otcdocs_auto_name = False
@@ -88,6 +90,7 @@ html_title = "Data Admin Service - User Guide"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+templates_path = ['_templates']
 
 # Do not include sources into the rendered results
 html_copy_source = False
@@ -96,6 +99,25 @@ html_copy_source = False
 latex_documents = [
     ('index',
      'das-umn.tex',
-     u'Data Admin Service - User Guide',
+    u'Data Admin Service - User Guide',
      u'OpenTelekomCloud', 'manual'),
 ]
+
+# Get the Git commit values for last updated timestamp on each page
+repo = Repo(search_parent_directories=True)
+commit = repo.head.commit
+current_commit_hash = commit.hexsha
+current_commit_time = commit.committed_datetime.strftime('%Y-%m-%d %H:%M')
+
+latex_elements = {
+  'papersize': 'a4paper',
+  'pointsize': '12pt',
+  'figure_align': 'H',
+  'preamble': rf'''
+        \newcommand{{\githash}}{{{current_commit_hash}}}
+        \newcommand{{\gitcommittime}}{{{current_commit_time}}}
+        \newcommand{{\doctitle}}{{{otcdocs_doc_title}}}
+        \newcommand{{\servicetitle}}{{{otcdocs_service_title}}}
+  ''',
+  'sphinxsetup': 'hmargin={15mm,15mm}, vmargin={20mm,30mm}, marginpar=10mm'
+}
