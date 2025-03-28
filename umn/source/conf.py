@@ -16,9 +16,11 @@
 
 import os
 import sys
+from git import Repo
+from datetime import datetime
 
 extensions = [
-    'otcdocstheme'
+    'otcdocstheme',
 ]
 
 otcdocs_auto_name = False
@@ -27,6 +29,17 @@ otcdocs_auto_version = False
 project = 'Data Admin Service'
 otcdocs_repo_name = 'opentelekomcloud-docs/data-admin-service'
 # Those variables are required for edit/bug links
+
+# Those variables are needed for indexing into OpenSearch
+otcdocs_doc_environment = 'public'
+otcdocs_doc_link = '/data-admin-service/umn/'
+otcdocs_doc_title = 'User Guide'
+otcdocs_doc_type = 'umn'
+otcdocs_service_category = 'database'
+otcdocs_service_title = 'Data Admin Service'
+otcdocs_service_type = 'das'
+otcdocs_search_environment = 'hc_de'
+otcdocs_search_url = "https://opensearch.eco.tsi-dev.otc-service.com/"
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -76,6 +89,7 @@ html_theme = 'otcdocs'
 # further. For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
+    "logo_url": "https://docs.otc.t-systems.com",
 }
 
 # The name for this set of Sphinx documents.  If None, it defaults to
@@ -88,6 +102,7 @@ html_title = "Data Admin Service - User Guide"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+templates_path = ['_templates']
 
 # Do not include sources into the rendered results
 html_copy_source = False
@@ -96,6 +111,25 @@ html_copy_source = False
 latex_documents = [
     ('index',
      'das-umn.tex',
-     u'Data Admin Service - User Guide',
+    u'Data Admin Service - User Guide',
      u'OpenTelekomCloud', 'manual'),
 ]
+
+# Get the Git commit values for last updated timestamp on each page
+repo = Repo(search_parent_directories=True)
+commit = repo.head.commit
+current_commit_hash = commit.hexsha
+current_commit_time = commit.committed_datetime.strftime('%Y-%m-%d %H:%M')
+
+latex_elements = {
+  'papersize': 'a4paper',
+  'pointsize': '12pt',
+  'figure_align': 'H',
+  'preamble': rf'''
+        \newcommand{{\githash}}{{{current_commit_hash}}}
+        \newcommand{{\gitcommittime}}{{{current_commit_time}}}
+        \newcommand{{\doctitle}}{{{otcdocs_doc_title}}}
+        \newcommand{{\servicetitle}}{{{otcdocs_service_title}}}
+  ''',
+  'sphinxsetup': 'hmargin={15mm,15mm}, vmargin={20mm,30mm}, marginpar=10mm'
+}
