@@ -7,6 +7,10 @@ Data Admin Service - User Guide
 
    service_overview/index
    getting_started/index
-   user_guide/index
+   permissions_management/index
+   logging_in_to_a_db_instance/index
+   rds_for_mysql/index
+   ddm/index
+   audit/index
    faqs/index
    change_history

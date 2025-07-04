@@ -1,0 +1,30 @@
+:original_name: das_04_0033.html
+
+.. _das_04_0033:
+
+Dropping a Stored Procedure
+===========================
+
+This section describes how to drop a stored procedure that is no longer needed.
+
+Usage Notes
+-----------
+
+Dropped stored procedures cannot be recovered. Exercise caution when performing this operation.
+
+Procedure
+---------
+
+#. Log in to the OTC console.
+#. Click |image1| in the upper left corner and select a region and project.
+#. Click |image2| in the upper left corner, and under **Databases**, click **Data Admin Service**.
+#. In the navigation pane on the left, choose **Development Tool**.
+#. Locate the DB instance that you want to log in to and click **Log In** in the **Operation** column.
+#. On the top menu bar, choose **Database Management**.
+#. Click **Change** on the right of the current database to switch to the database where you want to create a table.
+#. On the **Objects** tab page, choose **Stored Procedures**.
+#. Locate the stored procedure you want to drop and click **Drop** in the **Operation** column.
+#. In the displayed dialog box, click **Yes**.
+
+.. |image1| image:: /_static/images/en-us_image_0000001694653209.png
+.. |image2| image:: /_static/images/en-us_image_0000001694653201.png

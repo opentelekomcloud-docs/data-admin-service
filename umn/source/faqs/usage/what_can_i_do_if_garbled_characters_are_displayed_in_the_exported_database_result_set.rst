@@ -5,6 +5,8 @@
 What Can I Do If Garbled Characters Are Displayed in the Exported Database Result Set?
 ======================================================================================
 
-CSV files exported from DAS are encoded in UTF-8, whereas Excel files are encoded in ANSI. Encoding inconsistency resulted in garbled characters.
+CSV files exported from DAS are encoded in UTF-8.
+
+Excel files are encoded in ANSI. Garbled characters are caused by inconsistent encoding modes.
 
 You are advised to open the CSV file using a text editor and save the file in ANSI encoding.
